@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="" />
+</head>
+<body>
+  <h1>Websocket</h1>
+  <input type="text" />
+  <button>submit</button>
+</body>
+<script>
+    const input = document.querySelector('input');
+    const button = document.querySelector('button');
+
+    button.addEventListener('click', () => {
+        const value = input.value;
+        websocket.send(value);
+        input.value = '';
+    })
+
+    const websocket = new WebSocket('ws://localhost:4001');
+
+    websocket.onopen = () => {
+        console.log("connection is open");
+    }
+
+    websocket.onerror = (err) => {
+        console.log("error: ", err);
+    }
+
+    websocket.onmessage = (msg) => {
+        console.log(msg.data)
+    }
+
+    websocket.onclosed = () => {
+        console.log("conection closed");
+    }
+</script>
+</html>
